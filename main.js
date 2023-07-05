@@ -35,7 +35,7 @@ $(document).ready(function() {
         if(score>=up1Cost){
             score -= up1Cost;
             up1Val += 1;
-            up1Cost = Math.round(10 + up1Val**1.7) - up2Val;
+            up1Cost = Math.round(10 + up1Val**1.7 - up2Val);
 
             scoreDisplay.html(score);
             up1ValDisplay.html(up1Val);
