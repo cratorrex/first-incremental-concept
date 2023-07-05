@@ -15,7 +15,7 @@ $(document).ready(function() {
     const up2CostDisplay=$("#up2Cost");
 
     //let score = 0;
-    let score = 200;
+    let score = 500;
     
     let up1Val = 1;
     let up1Cost = 10;
@@ -35,7 +35,7 @@ $(document).ready(function() {
         if(score>=up1Cost){
             score -= up1Cost;
             up1Val += 1;
-            up1Cost = Math.round(10 + up1Val**1.7 - up2Val);
+            up1Cost = Math.round(10 + up1Val**1.7) - up2Val;
 
             scoreDisplay.html(score);
             up1ValDisplay.html(up1Val);
@@ -45,9 +45,9 @@ $(document).ready(function() {
 
 
     up2Button.click(function(){
-        if(score>=100&&score>=up2Cost){
+        if(score>=100&&score>=up2Cost&&up1Cost>1){
             score -= up2Cost;
-            up1Cost = up1Cost / 2;
+            up1Cost = Math.floor(up1Cost / 2);
             up2Val += up1Cost;
             up2Cost = Math.round(50 + up2Val**1.2);
 
