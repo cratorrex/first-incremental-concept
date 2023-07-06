@@ -14,8 +14,7 @@ body {
     }
 
 button > p {
-    margin-top: 7px;
-    margin-bottom: 7px;
+    margin-block: 14px;
     
 }
 
