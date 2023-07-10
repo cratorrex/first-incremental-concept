@@ -5,20 +5,24 @@ class Game {
         this.fpsLimit = 30;
         this.gameFrame = 0;
         this.frameCount = 0;
+        this.frameSaveCount = 0;
 
         this.score = 0;
 
         this.up1Val = 1;
         this.up1Cost = 10;
         this.up1Level = 0;
+        this.up1MinScore = 5;
 
         this.up2Val = 0;
         this.up2Cost = 50;
         this.up2Level = 0;
+        this.up2MinScore = 50;
 
         this.gen1Gen = 0;
         this.gen1Cost = 25;
         this.gen1Own = 0;
+        this.gen1MinScore = 20;
     
     }
 

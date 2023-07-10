@@ -1,5 +1,6 @@
 let game;
 let Displays = {};
+let Buttons = {};
 
 $(document).ready(function() {
     console.log("Debug message");
@@ -23,21 +24,21 @@ function init() {
 
 
 
-    const mainButton = $("#btnPrimary");
-    const up1Button = $("#up1");
-    const up2Button = $("#up2");
-    const gen1Button = $("#gen1");
+    Buttons.main = $("#btnPrimary");
+    Buttons.upg1 = $("#up1");
+    Buttons.upg2 = $("#up2");
+    Buttons.gen1 = $("#gen1");
 
 
-    const btnSave = $("#btnSave");
-    const btnLoad = $("#btnLoad");
+    Buttons.Save = $("#btnSave");
+    Buttons.Load = $("#btnLoad");
 
 
-    btnSave.click(function() {
+    Buttons.Save.click(function() {
         game.saveGame();
     });
 
-    btnLoad.click(function() {
+    Buttons.Load.click(function() {
         game.loadGame();
     });
 
@@ -47,7 +48,7 @@ function init() {
 
     //let score = 0;
 
-    mainButton.click(function() {
+    Buttons.main.click(function() {
         game.score += game.up1Val;
         //console.log(score);
         Displays.scoreDisplay.html(game.score);
@@ -55,7 +56,7 @@ function init() {
         
     });
 
-    up1Button.click(function() {
+    Buttons.upg1.click(function() {
         if(game.score>=game.up1Cost){
             game.score -= game.up1Cost;
             game.up1Val += 1;
@@ -68,7 +69,7 @@ function init() {
     });
 
 
-    up2Button.click(function(){
+    Buttons.upg2.click(function(){
         if(game.score>=100&&game.score>=game.up2Cost&&game.up1Cost>1){
             game.score -= game.up2Cost;
             game.up1Cost = Math.floor(game.up1Cost / 2);
@@ -83,7 +84,7 @@ function init() {
         
     });
 
-    gen1Button.click(function(){
+    Buttons.gen1.click(function(){
         if(game.score>=game.gen1Cost){
             game.score -= game.gen1Cost;
             game.gen1Own += 1;
@@ -103,8 +104,10 @@ function init() {
 
 
 
-
+    game.loadGame();
 };
+
+
 
 
 
@@ -113,10 +116,33 @@ function init() {
     function updateGeneration(game){
 
         let generation = game.gen1Gen;
-        game.score = game.score + generation/60;
+        game.score = game.score + generation/5;
 
+        updateConditions(game)
 
     }
+
+
+    function updateConditions(game){
+
+        if(game.score >= game.up1MinScore){
+            Buttons.upg1.show();
+        }
+        else {Buttons.upg1.hide();}
+
+        if(game.score >= game.up2MinScore){
+            Buttons.upg2.show();
+        }
+        else {Buttons.upg2.hide();}
+
+        if(game.score >= game.gen1MinScore){
+            Buttons.gen1.show();
+        }
+        else {Buttons.gen1.hide();}
+    }
+
+
+
 
     function updateData(Displays, game) {
         
@@ -129,16 +155,28 @@ function init() {
         Displays.up2CostDisplay.html(game.up2CostDisplay);
     }
     
+
+
+
+
     function tick() {
         game.frameCount++;
+        game.frameSaveCount++;
     
-        if (game.frameCount >= 60 / game.fpsLimit) {  // Runs every 60 frames
+        if (game.frameCount >= 60 / 5 /*/ game.fpsLimit*/) {  // Runs every 60 frames
             game.gameFrame++;
     
             updateData(Displays, game);
     
             game.frameCount = 0;
         }
+        
+        if(game.frameSaveCount >= 600){
+            game.saveGame();
+
+            game.frameSaveCount = 0;
+        }
+
         requestAnimationFrame(tick);
     }
 

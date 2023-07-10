@@ -9,13 +9,21 @@ body {
     height: 100vh;
 }
 
+div {
+    color: white;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+}
+
 .inline {
     display: inline-block;
     }
 
 button > p {
     margin-block: 14px;
-    
 }
 
 
