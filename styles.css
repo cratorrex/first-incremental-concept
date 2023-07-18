@@ -26,6 +26,18 @@ button > p {
     margin-block: 14px;
 }
 
+button.small > p {
+    margin-block: 9px;
+}
+
+button.buyable{
+    background-color: rgba(40, 0, 0, 0.25);
+}
+button.bought{
+    background-color: rgba(0, 40, 0, 0.25);
+}
+
+
 
 button {
     width: 250px;
@@ -39,6 +51,16 @@ button {
     display: flex;
     flex-direction: column;
 
+}
+
+button.small {
+    width: 150px;
+    margin: 5px;
+    padding: 3px;
+    border-radius: 7px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column; 
 }
 
 

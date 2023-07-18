@@ -25,13 +25,19 @@ function init() {
 
 
     Buttons.main = $("#btnPrimary");
-    Buttons.upg1 = $("#up1");
+
+    Buttons.upg1 = $("#up1"); Buttons.upg1_1 = $("#up1_1");
     Buttons.upg2 = $("#up2");
+    Buttons.upg3 = $("#up3");
     Buttons.gen1 = $("#gen1");
+    
 
 
     Buttons.Save = $("#btnSave");
     Buttons.Load = $("#btnLoad");
+    Buttons.Export = $("#btnExport");
+    Buttons.Import = $("#btnImport");
+    Buttons.DebugReset = $("#btnDebugReset");
 
 
     Buttons.Save.click(function() {
@@ -42,7 +48,13 @@ function init() {
         game.loadGame();
     });
 
+    Buttons.Export.click(function() {
+        game.exportGame();
+    });
 
+    Buttons.Import.click(function() {
+        game.importGame();
+    });
 
 
 
@@ -51,7 +63,7 @@ function init() {
     Buttons.main.click(function() {
         game.score += game.up1Val;
         //console.log(score);
-        Displays.scoreDisplay.html(game.score);
+        Displays.scoreDisplay.html(Math.floor(game.score));
         
         
     });
@@ -67,6 +79,7 @@ function init() {
             Displays.up1CostDisplay.html(game.up1Cost);
         }
     });
+
 
 
     Buttons.upg2.click(function(){
@@ -115,8 +128,9 @@ function init() {
 
     function updateGeneration(game){
 
-        let generation = game.gen1Gen;
-        game.score = game.score + generation/5;
+        let generation = (game.gen1Gen)/5;
+        game.score = game.score + generation;
+        game.scoreTotal = game.scoreTotal + generation;
 
         updateConditions(game)
 
@@ -124,22 +138,38 @@ function init() {
 
 
     function updateConditions(game){
-
-        if(game.score >= game.up1MinScore){
+        let score = game.scoreTotal;
+        /*
+        if(game.scoreTotal >= game.up1MinScore){
             Buttons.upg1.show();
         }
         else {Buttons.upg1.hide();}
 
-        if(game.score >= game.up2MinScore){
+        if(game.scoreTotal >= game.up2MinScore){
             Buttons.upg2.show();
         }
         else {Buttons.upg2.hide();}
 
-        if(game.score >= game.gen1MinScore){
+        if(game.scoreTotal >= game.gen1MinScore){
             Buttons.gen1.show();
         }
         else {Buttons.gen1.hide();}
+        */
+
+        condenseConditions(score, game.up1MinScore, Buttons.upg1);
+        condenseConditions(score, game.up2MinScore, Buttons.upg2);
+        condenseConditions(score, game.gen1MinScore, Buttons.gen1);
+        condenseConditions(score, game.up1_1MinScore, Buttons.upg1_1);
+
+        function condenseConditions(score, minScore, button){
+            if(score >= minScore){
+                button.show();
+            }
+            else { button.hide(); }
     }
+    }
+
+    
 
 
 
