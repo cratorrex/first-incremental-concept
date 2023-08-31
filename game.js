@@ -19,6 +19,7 @@ class Game {
         this.up1Level = 0;
         this.up1MinScore = 5;
 
+        this.up1_1Val = 1;
         this.up1_1Cost = 50;
         this.up1_1MinScore = 200;
         this.up1_1Bought = false;
@@ -26,7 +27,7 @@ class Game {
         this.up2Val = 0;
         this.up2Cost = 50;
         this.up2Level = 0;
-        this.up2MinScore = 50;
+        this.up2MinScore = 120;
 
         this.up3Val = 0;
         this.up3Cost = 175;
@@ -34,12 +35,15 @@ class Game {
         this.up3Condition = false;
 
         this.gen1Gen = 0;
+        this.gen1Base = 2;
         this.gen1Cost = 25;
         this.gen1Own = 0;
         this.gen1MinScore = 20;
 
         this.gen2Gen = 0;
         this.gen2Cost = 1200;
+        this.gen2Own = 0;
+        this.gen2Condition = false;
 
 
         
@@ -68,7 +72,7 @@ class Game {
     exportGame() {
         let gameData = JSON.stringify(this);
         localStorage.setItem("gameData", gameData);
-        window.alert(gameData);
+        prompt("Exported Game Data:",gameData);
     }
 
     loadGame() {
@@ -84,8 +88,10 @@ class Game {
         let savedGame = JSON.parse(gameData);
         Object.assign(this, savedGame);
         console.log(this);
-        console.log("loaded");
+        localStorage.setItem("gameData", gameData);
 
+        console.log("imported");
+        
     }
 
 }
