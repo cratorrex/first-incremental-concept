@@ -3,14 +3,17 @@
     <head>
         <link rel="stylesheet" href="styles.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+        <title>First Incremental Concept</title>
     </head>
     <body>
+
         <div>
             <p>You have <b id="displayScore">0</b> points</p> 
             <button class="tip"
 title="Yellow Buttons means that they have not been implemented yet!">
             !</button>
+
+            <div id="main-container"></div>
         </div>
             <button id="btnPrimary">
                 <p>Number Go UP!</p>
@@ -35,7 +38,7 @@ Does not work if Upgrade 1 cost less than 1">
                 <p>Total Cost removed since reset: <b id="up2Value">0</b></p>
             </button>
         
-            <button id="up3" class="building" >
+            <button id="up3">
                 <p>Upgrade 3</p>
                 <p>Unlocks a new Generator</p>
                 <p>Each new Generator costs 48x, and produces 60x more than the last.</p>
@@ -44,9 +47,9 @@ Does not work if Upgrade 1 cost less than 1">
             </button>
 </div>
 <div>
-                <button id="up1_1" class="small buyable"
+                <button id="up1A" class="small buyable"
 title="You need to buy Gen 1 once to see the new values.">
-                <p>Upgrade 1-1</p>
+                <p>Upgrade 1a</p>
                 <p>Gen 1 Production * 1.5<br/>
                     Unlock Upgrade 3</p>
                 <p>Cost: <b>50</b></p>
@@ -63,23 +66,32 @@ title="You need to buy Gen 1 once to see the new values.">
                    Owned: <b id="gen1Own">0</b></p>
             </button>
 
-            <button id="gen2" class="building">
+            <button id="gen2">
                 <p>Generator 2</p>
-                <p>Generates <b>120</b> points every second.</p>
-                <p>Cost: <b id="gen2Cost">1200</b></p>
-                <p>Owned: <b id="gen2Own">0</b></p>
+                <p>Generates <b id="gen2Base">120</b> points every second.</p>
+                <p>Generating: <b id="gen2Gen">0</b><br/>
+                   Cost: <b id="gen2Cost">1200</b><br/>
+                   Owned: <b id="gen2Own">0</b></p>
             </button>
 
             <button id="gen3">
-
+                <p>Generator 3</p>
+                <p>Generates <b id="gen3Base">7200</b> points every second.</p>
+                <p>Generating: <b id="gen3Gen">0</b><br/>
+                   Cost: <b id="gen3Cost">57600</b><br/>
+                   Owned: <b id="gen3Own">0</b></p>
             </button>
 
             <button id="gen4">
-
+                <p>Generator 4</p>
+                <p>Generates <b id="gen4Base">432000</b> points every second.</p>
+                <p>Generating: <b id="gen4Gen">0</b><br/>
+                   Cost: <b id="gen4Cost">2764800</b><br/>
+                   Owned: <b id="gen4Own">0</b></p>
             </button>
 
-            <button id="gen5">
-
+            <button id="gen5" class="small building">
+                <p>Generator 5 ???</p>
             </button>
 
 </div>
@@ -102,14 +114,16 @@ title="You need to buy Gen 1 once to see the new values.">
                 Import
             </button>
 
+            <button id="btnVersion" class="version small building"
+            title="Click me for the Changelog!">
+                0.3.G4
+            </button>
 </div>
-
 
 
             
 
 
-        <script src="game.js"></script>
         <script src="main.js" type="module"></script>
     </body>
 </html>

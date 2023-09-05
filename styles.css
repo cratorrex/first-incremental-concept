@@ -1,5 +1,6 @@
 body {
     background-color: #101010;
+    font-family: sans-serif;
     color: white;
     justify-content: center;
     align-items: center;
@@ -7,6 +8,12 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+}
+
+section{
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 div {
@@ -70,6 +77,9 @@ button.tip{
     width: 30px;
     border-radius: 5px;    
     display: flex;
+}
+button.version{
+    width: 50px;
 }
 
 

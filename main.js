@@ -1,15 +1,24 @@
-let game;
+import { Game } from "./game.js";
+import { notification } from "./notification.js";
+
+
+
 let Displays = {};
 let Buttons = {};
+
 
 $(document).ready(function() {
     console.log("Debug message");
     init();
     tick();
+    
+    //setInterval(tick,50);
 });
 
 function init() {
-    game = new Game();
+    //game = new Game();
+
+    window.game = new Game();
 
     Displays.scoreDisplay = $("#displayScore");
 
@@ -22,19 +31,31 @@ function init() {
     Displays.up3LevelDisplay = $("#up3Level");
     Displays.up3CostDisplay = $("#up3Cost");
 
-    Displays.gen1GenDisplay = $("#gen1Gen");
+    Displays.gen1GenDisplay =  $("#gen1Gen");
     Displays.gen1BaseDisplay = $("#gen1Base");
     Displays.gen1CostDisplay = $("#gen1Cost");
-    Displays.gen1OwnDisplay = $("#gen1Own");
+    Displays.gen1OwnDisplay =  $("#gen1Own");
 
-    Displays.gen2CostDisplay = $("#gen2Cost"); //*8
-    Displays.gen2OwnDisplay = $("#gen2Own");   //*8
+    Displays.gen2GenDisplay =  $("#gen2Gen");
+    Displays.gen2BaseDisplay = $("#gen2Base");
+    Displays.gen2CostDisplay = $("#gen2Cost");
+    Displays.gen2OwnDisplay =  $("#gen2Own");
+
+    Displays.gen3GenDisplay =  $("#gen3Gen");
+    Displays.gen3BaseDisplay = $("#gen3Base");
+    Displays.gen3CostDisplay = $("#gen3Cost");
+    Displays.gen3OwnDisplay =  $("#gen3Own");
+
+    Displays.gen4GenDisplay =  $("#gen4Gen");
+    Displays.gen4BaseDisplay = $("#gen4Base");
+    Displays.gen4CostDisplay = $("#gen4Cost");
+    Displays.gen4OwnDisplay =  $("#gen4Own");
 
 
 
     Buttons.main = $("#btnPrimary");
 
-    Buttons.upg1 = $("#up1"); Buttons.upg1_1 = $("#up1_1");
+    Buttons.upg1 = $("#up1"); Buttons.upg1A = $("#up1A");
     Buttons.upg2 = $("#up2");
     Buttons.upg3 = $("#up3");
 
@@ -51,6 +72,8 @@ function init() {
     Buttons.Export = $("#btnExport");
     Buttons.Import = $("#btnImport");
     Buttons.DebugReset = $("#btnDebugReset");
+    
+    Buttons.Version = $("#btnVersion");
 
 
     Buttons.Save.click(function() {
@@ -69,6 +92,9 @@ function init() {
         game.importGame();
     });
 
+    Buttons.Version.click(function() {
+        game.versionGame();
+    });
 
 
     //let score = 0;
@@ -95,16 +121,16 @@ function init() {
         }
     });
 
-    Buttons.upg1_1.click(function() {
-        if(game.score >= game.up1_1Cost && game.up1_1Bought == false){
-            game.score -= game.up1_1Cost;
-            game.up1_1Val = 1.5;
+    Buttons.upg1A.click(function() {
+        if(game.score >= game.up1ACost && game.up1ABought == false){
+            game.score -= game.up1ACost;
+            game.up1AVal = 1.5;
             game.gen1Base = 2*1.5;
-            game.up1_1Bought = true; 
+            game.up1ABought = true; 
             game.up3Condition = true;
             console.log("bought");
 
-            game.gen1Gen = game.gen1Own*2*game.up1_1Val;
+            game.gen1Gen = game.gen1Own*2*game.up1AVal;
             Displays.gen1GenDisplay.html(game.gen1Gen);
         }
     })
@@ -124,15 +150,63 @@ function init() {
         
     });
 
+    Buttons.upg3.click(function(){
+        if(game.score>=game.up3Cost && game.up3Level<3){
+            game.score -= game.up3Cost;
+            game.up3Level += 1;
+            game.up3Cost = Math.round(175 ** (1 + game.up3Level * 0.75)).toPrecision(4);
+
+            Displays.scoreDisplay.html(Math.floor(game.score));
+            Displays.up3LevelDisplay.html(game.up3Level);
+            Displays.up3CostDisplay.html(game.up3Cost);
+        }
+    });
+
     Buttons.gen1.click(function(){
         if(game.score>=game.gen1Cost){
             game.score -= game.gen1Cost;
             game.gen1Own += 1;
-            game.gen1Gen = game.gen1Own*2*game.up1_1Val;
-            game.gen1Cost = 25 + game.gen1Own**2;
+            game.gen1Gen = game.gen1Own * game.gen1Base * game.up1AVal;
+            game.gen1Cost = 25 + game.gen1Own ** 2;
 
             Displays.gen1CostDisplay.html(game.gen1Cost);
             Displays.gen1OwnDisplay.html(game.gen1Own);
+        }
+    })
+
+    Buttons.gen2.click(function(){
+        if(game.score>=game.gen2Cost){
+            game.score -= game.gen2Cost;
+            game.gen2Own += 1;
+            game.gen2Gen = game.gen2Own * game.gen2Base;
+            game.gen2Cost = Math.floor(   1200 + (game.gen2Own ** 2.1) *   100);
+
+            Displays.gen2CostDisplay.html(game.gen2Cost);
+            Displays.gen2OwnDisplay.html(game.gen2Own);
+        }
+    })
+
+    Buttons.gen3.click(function(){
+        if(game.score>=game.gen3Cost){
+            game.score -= game.gen3Cost;
+            game.gen3Own += 1;
+            game.gen3Gen = game.gen3Own * game.gen3Base;
+            game.gen3Cost = Math.floor(  57600 + (game.gen3Own ** 2.2) *  1000);
+
+            Displays.gen3CostDisplay.html(game.gen3Cost);
+            Displays.gen3OwnDisplay.html(game.gen3Own);
+        }
+    })
+
+    Buttons.gen4.click(function(){
+        if(game.score>=game.gen4Cost){
+            game.score -= game.gen4Cost;
+            game.gen4Own += 1;
+            game.gen4Gen = game.gen4Own * game.gen4Base;
+            game.gen4Cost = Math.floor(2764800 + (game.gen4Own ** 2.3) * 10000);
+
+            Displays.gen4CostDisplay.html(game.gen4Cost);
+            Displays.gen4OwnDisplay.html(game.gen4Own);
         }
     })
 
@@ -142,12 +216,12 @@ function init() {
 
 
 
-
-
     game.loadGame();
+    game.frameSaveCount = 0;
+    notification("You are seeing this notification as the game just loaded :D", 
+    $("#main-container"));
+
 };
-
-
 
 
 
@@ -155,7 +229,8 @@ function init() {
 
     function updateGeneration(game){
 
-        let generation = (game.gen1Gen)/5;
+        let generation = (game.gen1Gen + game.gen2Gen + game.gen3Gen 
+            + game.gen4Gen)/10;
         game.score = game.score + generation;
         game.scoreTotal = game.scoreTotal + generation;
 
@@ -183,7 +258,7 @@ function init() {
         else {Buttons.gen1.hide();}
 
         if(game.up3Condition > false){
-            Buttons.upg1_1.show();
+            Buttons.upg1A.show();
         }
         */
 
@@ -195,13 +270,13 @@ function init() {
         condenseConditions(game.up3Level, 2, Buttons.gen3);
         condenseConditions(game.up3Level, 3, Buttons.gen4);
         
-        condenseConditions(score, game.up1_1MinScore, Buttons.upg1_1);
+        condenseConditions(score, game.up1AMinScore, Buttons.upg1A);
         condenseConditions(game.up3Condition, false, Buttons.upg3);
 
-        condenseBought(Buttons.upg1_1, game.up1_1Bought);
+        condenseBought(Buttons.upg1A, game.up1ABought);
 
         function condenseConditions(score, minScore, button){
-            if(score > minScore){
+            if(score >= minScore){
                 button.show();
             }
             else { button.hide(); }
@@ -234,10 +309,26 @@ function init() {
         Displays.up3LevelDisplay.html(game.up3Level);
         Displays.up3CostDisplay.html(game.up3Cost);
 
-        Displays.gen1OwnDisplay.html(game.gen1Own);
+        Displays.gen1OwnDisplay.html (game.gen1Own);
         Displays.gen1BaseDisplay.html(game.gen1Base);
-        Displays.gen1GenDisplay.html(game.gen1Gen);
+        Displays.gen1GenDisplay.html (game.gen1Gen);
         Displays.gen1CostDisplay.html(game.gen1Cost);
+
+        Displays.gen2OwnDisplay.html (game.gen2Own);
+        Displays.gen2BaseDisplay.html(game.gen2Base);
+        Displays.gen2GenDisplay.html (game.gen2Gen);
+        Displays.gen2CostDisplay.html(game.gen2Cost);
+
+        Displays.gen3OwnDisplay.html (game.gen3Own);
+        Displays.gen3BaseDisplay.html(game.gen3Base);
+        Displays.gen3GenDisplay.html (game.gen3Gen);
+        Displays.gen3CostDisplay.html(game.gen3Cost);
+
+        Displays.gen4OwnDisplay.html (game.gen4Own);
+        Displays.gen4BaseDisplay.html(game.gen4Base);
+        Displays.gen4GenDisplay.html (game.gen4Gen);
+        Displays.gen4CostDisplay.html(game.gen4Cost);
+
     }
     
 
@@ -248,7 +339,7 @@ function init() {
         game.frameCount++;
         game.frameSaveCount++;
     
-        if (game.frameCount >= 60 / 5 /*/ game.fpsLimit*/) {  // Runs every 60 frames
+        if (game.frameCount >= 60 / 10 /*/ game.fpsLimit*/) {  // Runs every 60 frames
             game.gameFrame++;
     
             updateData(Displays, game);
@@ -258,10 +349,12 @@ function init() {
         
         if(game.frameSaveCount >= 600){
             game.saveGame();
+            notification("Auto Saved.")
 
             game.frameSaveCount = 0;
         }
 
         requestAnimationFrame(tick);
     }
+
 
