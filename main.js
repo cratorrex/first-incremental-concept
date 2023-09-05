@@ -112,7 +112,7 @@ function init() {
         if(game.score>=game.up1Cost){
             game.score -= game.up1Cost;
             game.up1Level += 1; 
-            game.up1Val = game.up1Level;
+            game.up1Val = game.up1Level + 1;
             game.up1Cost = Math.round(10 + game.up1Level**1.7) - game.up2Val;
 
             Displays.scoreDisplay.html(Math.floor(game.score));
