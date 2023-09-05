@@ -266,9 +266,9 @@ function init() {
         condenseConditions(score, game.up2MinScore, Buttons.upg2);
 
         condenseConditions(score, game.gen1MinScore, Buttons.gen1);
-        condenseConditions(game.up3Level, 1, Buttons.gen2);
-        condenseConditions(game.up3Level, 2, Buttons.gen3);
-        condenseConditions(game.up3Level, 3, Buttons.gen4);
+        condenseConditions(game.up3Level, 0, Buttons.gen2);
+        condenseConditions(game.up3Level, 1, Buttons.gen3);
+        condenseConditions(game.up3Level, 2, Buttons.gen4);
         
         condenseConditions(score, game.up1AMinScore, Buttons.upg1A);
         condenseConditions(game.up3Condition, false, Buttons.upg3);
@@ -276,7 +276,7 @@ function init() {
         condenseBought(Buttons.upg1A, game.up1ABought);
 
         function condenseConditions(score, minScore, button){
-            if(score >= minScore){
+            if(score > minScore){
                 button.show();
             }
             else { button.hide(); }
