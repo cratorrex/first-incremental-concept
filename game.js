@@ -94,14 +94,15 @@ export class Game {
         let gameData = localStorage.getItem("gameData");
         let savedGame = JSON.parse(gameData);
 
-        if (savedGame.version !== this.version) {
-            for (const key in savedGame) {
-                if (savedGame.hasOwnProperty(key) && !this.hasOwnProperty(key)) {
-                    this[key] = savedGame[key];
-                }
+        if(savedGame!=null){
+            if (savedGame.version !== this.version) {
+                for (const key in savedGame) {
+                    if (savedGame.hasOwnProperty(key) && !this.hasOwnProperty(key)) {
+                        this[key] = savedGame[key];
+                    }
+               }
             }
         }
-
         Object.assign(this, savedGame);
         //this.convertDecimal();
         console.log(this);
@@ -127,7 +128,9 @@ export class Game {
 
     versionGame() {
         alert("Version 0.3.G4:\n" + "Implemented Upgrade 3 and "
-        +"Generators 2 to 4." + "\n\nVersion 0.2.U1a:\n"
+        +"Generators 2 to 4.\n" 
+        +"Hot fix for new saves causing a null error." 
+        +"\n\nVersion 0.2.U1a:\n"
         +"Changed Naming Convention for U1-1 to U1a, and added "
         +"another ability to U1a."
         +"\n\nVersion 0.2.U1-1:\n" + "Implemented Upgrade 1-1.");
