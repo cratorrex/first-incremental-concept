@@ -20,10 +20,17 @@ div {
     color: white;
     justify-content: center;
     align-items: center;
-    margin: auto;
     display: flex;
     flex-direction: row;
+    margin: 10px;
+
 }
+
+div.main, .prestige {
+    flex-direction: column;
+    margin: auto;
+}
+
 
 .inline {
     display: inline-block;
@@ -45,6 +52,9 @@ button.bought{
 }
 button.building{
     background-color: #141400;
+}
+button.inTab{
+    background-color: #303030;
 }
 
 

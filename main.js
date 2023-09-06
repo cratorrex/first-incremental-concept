@@ -5,6 +5,7 @@ import { notification } from "./notification.js";
 
 let Displays = {};
 let Buttons = {};
+let tabIndex = 0;
 
 
 $(document).ready(function() {
@@ -21,6 +22,9 @@ function init() {
     window.game = new Game();
 
     Displays.scoreDisplay = $("#displayScore");
+    
+    Displays.MainDisplay = $("#mainTab");
+    Displays.PrestigeDisplay = $("#prestigeTab");
 
     Displays.up1ValDisplay = $("#up1Value");
     Displays.up1CostDisplay = $("#up1Cost");
@@ -52,8 +56,10 @@ function init() {
     Displays.gen4OwnDisplay =  $("#gen4Own");
 
 
+    Buttons.MainTab = $("#btnMainTab");
+    Buttons.PrestigeTab = $("#btnPrestigeTab");
 
-    Buttons.main = $("#btnPrimary");
+    Buttons.Primary = $("#btnPrimary");
 
     Buttons.upg1 = $("#up1"); Buttons.upg1A = $("#up1A");
     Buttons.upg2 = $("#up2");
@@ -74,6 +80,16 @@ function init() {
     Buttons.DebugReset = $("#btnDebugReset");
     
     Buttons.Version = $("#btnVersion");
+
+
+    Buttons.MainTab.click(function(){
+        tabIndex = 0;
+    });
+
+    Buttons.PrestigeTab.click(function(){
+        tabIndex = 1;
+    });
+
 
 
     Buttons.Save.click(function() {
@@ -99,7 +115,7 @@ function init() {
 
     //let score = 0;
 
-    Buttons.main.click(function() {
+    Buttons.Primary.click(function() {
         game.score += game.up1Val;
         game.scoreTotal += game.up1Val;
         //console.log(score);
@@ -154,11 +170,11 @@ function init() {
         if(game.score>=game.up3Cost && game.up3Level<3){
             game.score -= game.up3Cost;
             game.up3Level += 1;
-            game.up3Cost = Math.round(175 ** (1 + game.up3Level * 0.75)).toPrecision(4);
+            game.up3Cost = Math.round((175 ** (1 + game.up3Level * 0.75)).toPrecision(4));
 
             Displays.scoreDisplay.html(Math.floor(game.score));
             Displays.up3LevelDisplay.html(game.up3Level);
-            Displays.up3CostDisplay.html(game.up3Cost);
+            Displays.up3CostDisplay.html(game.up3Cost.toLocaleString("en-US"));
         }
     });
 
@@ -287,6 +303,32 @@ function init() {
             else { button.removeClass("bought"); }
         }
 
+
+
+        //condenseConditions(game.scorePrestigeTotal, 0, Buttons.PrestigeTab)
+
+        switch(tabIndex){
+            case 0:
+                Displays.MainDisplay.show();        
+                 Buttons.MainTab.addClass       ("inTab");
+                Displays.PrestigeDisplay.hide();
+                 Buttons.PrestigeTab.removeClass("inTab");
+break;
+
+            case 1:
+                Displays.MainDisplay.hide(); 
+                 Buttons.MainTab.removeClass    ("inTab");
+                Displays.PrestigeDisplay.show();
+                 Buttons.PrestigeTab.addClass   ("inTab");
+            break;
+
+            default:
+                Displays.MainDisplay.show();        
+                 Buttons.MainTab.addClass       ("inTab");
+                Displays.PrestigeDisplay.hide();
+                 Buttons.PrestigeTab.removeClass("inTab");
+            break;
+        }
     }
 
     
@@ -298,7 +340,7 @@ function init() {
         
         updateGeneration(game);
 
-        Displays.scoreDisplay.html(Math.floor(game.score));
+        Displays.scoreDisplay.html(Math.floor(game.score.toPrecision(10)).toLocaleString("en-US"));
         
         Displays.up1ValDisplay.html(game.up1Val);
         Displays.up1CostDisplay.html(game.up1Cost);
@@ -339,7 +381,7 @@ function init() {
         game.frameCount++;
         game.frameSaveCount++;
     
-        if (game.frameCount >= 60 / 10 /*/ game.fpsLimit*/) {  // Runs every 60 frames
+        if (game.frameCount >= 60 / 6 /*/ game.fpsLimit*/) {  // Runs every 60 frames
             game.gameFrame++;
     
             updateData(Displays, game);

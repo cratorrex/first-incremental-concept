@@ -19,82 +19,107 @@ title="Yellow Buttons means that they have not been implemented yet!">
                 <p>Number Go UP!</p>
             </button>
         
-
-<div>
-            <button id="up1">
-                <p>Upgrade 1</p>
-                <p>+1 more points per button press.</p>
-                <p>Cost: <b id="up1Cost">10</b></p> 
-                <p>Currently +<b id="up1Value">1</b></p>
+        <div>
+            <button id="btnMainTab" class="small">
+                Main
             </button>
-
-            <button id="up2" 
-title="Cost: 50 + (Cost Removed)^1.2, rounded up.
-Does not work if Upgrade 1 cost less than 1">
-                <p>Upgrade 2</p>
-                <p>Halve the current cost of Upgrade 1 
-                <br/> (Requires 100 points.)</p>
-                <p>Cost: <b id="up2Cost">50</b></p>
-                <p>Total Cost removed since reset: <b id="up2Value">0</b></p>
+            <button id="btnPrestigeTab" class="small">
+                Prestige
             </button>
+        </div>
         
-            <button id="up3">
-                <p>Upgrade 3</p>
-                <p>Unlocks a new Generator</p>
-                <p>Each new Generator costs 48x, and produces 60x more than the last.</p>
-                <p>Cost: <b id="up3Cost">175</b></p>
-                <p>Level <b id="up3Level">0</b>/3</p>
-            </button>
-</div>
-<div>
+<div id="mainTab" class="main">
+    <div>
+                <button id="up1">
+                    <p>Upgrade 1</p>
+                    <p>+1 more points per button press.</p>
+                    <p>Cost: <b id="up1Cost">10</b></p> 
+                    <p>Currently +<b id="up1Value">1</b></p>
+                </button>
+
+                <button id="up2" 
+    title="Cost: 50 + (Cost Removed)^1.2, rounded up.
+    Does not work if Upgrade 1 cost less than 1">
+                    <p>Upgrade 2</p>
+                    <p>Halve the current cost of Upgrade 1 
+                    <br/> (Requires 100 points.)</p>
+                    <p>Cost: <b id="up2Cost">50</b></p>
+                    <p>Total Cost removed since reset: <b id="up2Value">0</b></p>
+                </button>
+            
+                <button id="up3">
+                    <p>Upgrade 3</p>
+                    <p>Unlocks a new Generator</p>
+                    <p>Each new Generator costs 48x, and produces 60x more than the last.</p>
+                    <p>Cost: <b id="up3Cost">175</b></p>
+                    <p>Level <b id="up3Level">0</b>/3</p>
+                </button>
+
+                <button id="up4" class="building">
+                    <p>Upgrade 4</p>
+                </button>
+    </div>
+    <div>
                 <button id="up1A" class="small buyable"
-title="You need to buy Gen 1 once to see the new values.">
-                <p>Upgrade 1a</p>
-                <p>Gen 1 Production * 1.5<br/>
-                    Unlock Upgrade 3</p>
-                <p>Cost: <b>50</b></p>
-            </button>
+    title="You need to buy Gen 1 once to see the new values.">
+                    <p>Upgrade 1a</p>
+                    <p>Gen 1 Production * 1.5<br/>
+                        Unlock Upgrade 3</p>
+                    <p>Cost: <b>50</b></p>
+                </button>
+
+                <button id="up2A" class="building small buyable">
+
+                    <p>Upgrade 2a</p>
+                </button>
+    </div>
+
+    <div>
+                <button id="gen1">
+                    <p>Generator 1</p>
+                    <p>Generates <b id="gen1Base">2</b> points every second.</p>
+                    <p>Generating: <b id="gen1Gen">0</b><br/>
+                       Cost: <b id="gen1Cost">25</b><br/>
+                       Owned: <b id="gen1Own">0</b></p>
+                </button>
+
+                <button id="gen2">
+                    <p>Generator 2</p>
+                    <p>Generates <b id="gen2Base">120</b> points every second.</p>
+                    <p>Generating: <b id="gen2Gen">0</b><br/>
+                       Cost: <b id="gen2Cost">1200</b><br/>
+                       Owned: <b id="gen2Own">0</b></p>
+                </button>
+
+                <button id="gen3">
+                    <p>Generator 3</p>
+                    <p>Generates <b id="gen3Base">7200</b> points every second.</p>
+                    <p>Generating: <b id="gen3Gen">0</b><br/>
+                       Cost: <b id="gen3Cost">57600</b><br/>
+                       Owned: <b id="gen3Own">0</b></p>
+                </button>
+
+                <button id="gen4">
+                    <p>Generator 4</p>
+                    <p>Generates <b id="gen4Base">432000</b> points every second.</p>
+                    <p>Generating: <b id="gen4Gen">0</b><br/>
+                       Cost: <b id="gen4Cost">2764800</b><br/>
+                       Owned: <b id="gen4Own">0</b></p>
+                </button>
+
+                <button id="gen5" class="small building">
+                    <p>Generator 5 ???</p>
+                </button>
+
+    </div>
+</div>
+
+<div id="prestigeTab" class="prestige">
+
+
 
 </div>
 
-<div>
-            <button id="gen1">
-                <p>Generator 1</p>
-                <p>Generates <b id="gen1Base">2</b> points every second.</p>
-                <p>Generating: <b id="gen1Gen">0</b><br/>
-                   Cost: <b id="gen1Cost">25</b><br/>
-                   Owned: <b id="gen1Own">0</b></p>
-            </button>
-
-            <button id="gen2">
-                <p>Generator 2</p>
-                <p>Generates <b id="gen2Base">120</b> points every second.</p>
-                <p>Generating: <b id="gen2Gen">0</b><br/>
-                   Cost: <b id="gen2Cost">1200</b><br/>
-                   Owned: <b id="gen2Own">0</b></p>
-            </button>
-
-            <button id="gen3">
-                <p>Generator 3</p>
-                <p>Generates <b id="gen3Base">7200</b> points every second.</p>
-                <p>Generating: <b id="gen3Gen">0</b><br/>
-                   Cost: <b id="gen3Cost">57600</b><br/>
-                   Owned: <b id="gen3Own">0</b></p>
-            </button>
-
-            <button id="gen4">
-                <p>Generator 4</p>
-                <p>Generates <b id="gen4Base">432000</b> points every second.</p>
-                <p>Generating: <b id="gen4Gen">0</b><br/>
-                   Cost: <b id="gen4Cost">2764800</b><br/>
-                   Owned: <b id="gen4Own">0</b></p>
-            </button>
-
-            <button id="gen5" class="small building">
-                <p>Generator 5 ???</p>
-            </button>
-
-</div>
 
 
 <div>            

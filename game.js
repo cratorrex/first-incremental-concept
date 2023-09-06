@@ -12,7 +12,8 @@ export class Game {
 
         this.scorePrestige = 0;
         this.scorePrestigeTotal = 0;
-        this.prestigeBase = 1e9;
+        this.prestigeBase  = 1e10;
+        this.prestigeScale = 1.5
 
         this.up1Val = 1;
         this.up1Cost = 10;
