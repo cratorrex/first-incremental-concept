@@ -144,6 +144,6 @@ export class Game {
         "<br/>Changed Naming Convention for U1-1 to U1a, and added "+
         "another ability to U1a.</p>"+
         "<hr/><p><b>Version 0.2.U1-1</b><br/>"+
-        "<br/>Implemented Upgrade 1-1.</p>")
+        "<br/>Implemented Upgrade 1-1.</p>");
     }
 }
