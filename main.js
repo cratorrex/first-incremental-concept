@@ -21,6 +21,10 @@ function init() {
     window.game = new Game();
 
     Displays.scoreDisplay = $("#displayScore");
+    
+    Displays.MainDisplay = $("#mainTab");
+    Displays.PrestigeDisplay = $("#prestigeTab");
+    Displays.ChangelogDisplay = $("#changelogTab");
 
     Displays.up1ValDisplay = $("#up1Value");
     Displays.up1CostDisplay = $("#up1Cost");
@@ -76,6 +80,20 @@ function init() {
     Buttons.Version = $("#btnVersion");
 
 
+    Buttons.MainTab.click(function(){
+        tabIndex = 0;
+    });
+
+    Buttons.PrestigeTab.click(function(){
+        tabIndex = 1;
+    });
+
+    Buttons.Version.click(function() {
+        //game.versionGame();
+        tabIndex = 9;
+    });
+
+
     Buttons.Save.click(function() {
         game.saveGame();
     });
@@ -92,9 +110,6 @@ function init() {
         game.importGame();
     });
 
-    Buttons.Version.click(function() {
-        game.versionGame();
-    });
 
 
     //let score = 0;
@@ -103,7 +118,7 @@ function init() {
         game.score += game.up1Val;
         game.scoreTotal += game.up1Val;
         //console.log(score);
-        Displays.scoreDisplay.html(Math.floor(game.score));
+        Displays.scoreDisplay.text(Math.floor(game.score));
         
         
     });
@@ -115,9 +130,9 @@ function init() {
             game.up1Val = game.up1Level + 1;
             game.up1Cost = Math.round(10 + game.up1Level**1.7) - game.up2Val;
 
-            Displays.scoreDisplay.html(Math.floor(game.score));
-            Displays.up1ValDisplay.html(game.up1Val);
-            Displays.up1CostDisplay.html(game.up1Cost);
+            Displays.scoreDisplay.text(Math.floor(game.score));
+            Displays.up1ValDisplay.text(game.up1Val);
+            Displays.up1CostDisplay.text(game.up1Cost);
         }
     });
 
@@ -131,7 +146,7 @@ function init() {
             console.log("bought");
 
             game.gen1Gen = game.gen1Own*2*game.up1AVal;
-            Displays.gen1GenDisplay.html(game.gen1Gen);
+            Displays.gen1GenDisplay.text(game.gen1Gen);
         }
     })
 
@@ -142,10 +157,10 @@ function init() {
             game.up2Val += game.up1Cost;
             game.up2Cost = Math.round(50 + game.up2Val**1.2);
 
-            Displays.scoreDisplay.html(Math.floor(game.score));
-            Displays.up1CostDisplay.html(game.up1Cost);
-            Displays.up2ValDisplay.html(game.up2Val);
-            Displays.up2CostDisplay.html(game.up2Cost);
+            Displays.scoreDisplay.text(Math.floor(game.score));
+            Displays.up1CostDisplay.text(game.up1Cost);
+            Displays.up2ValDisplay.text(game.up2Val);
+            Displays.up2CostDisplay.text(game.up2Cost);
         }
         
     });
@@ -156,9 +171,9 @@ function init() {
             game.up3Level += 1;
             game.up3Cost = Math.round(175 ** (1 + game.up3Level * 0.75)).toPrecision(4);
 
-            Displays.scoreDisplay.html(Math.floor(game.score));
-            Displays.up3LevelDisplay.html(game.up3Level);
-            Displays.up3CostDisplay.html(game.up3Cost);
+            Displays.scoreDisplay.text(Math.floor(game.score));
+            Displays.up3LevelDisplay.text(game.up3Level);
+            Displays.up3CostDisplay.text(game.up3Cost.toLocaleString("en-US"));
         }
     });
 
@@ -169,8 +184,8 @@ function init() {
             game.gen1Gen = game.gen1Own * game.gen1Base * game.up1AVal;
             game.gen1Cost = 25 + game.gen1Own ** 2;
 
-            Displays.gen1CostDisplay.html(game.gen1Cost);
-            Displays.gen1OwnDisplay.html(game.gen1Own);
+            Displays.gen1CostDisplay.text(game.gen1Cost);
+            Displays.gen1OwnDisplay.text(game.gen1Own);
         }
     })
 
@@ -181,8 +196,8 @@ function init() {
             game.gen2Gen = game.gen2Own * game.gen2Base;
             game.gen2Cost = Math.floor(   1200 + (game.gen2Own ** 2.1) *   100);
 
-            Displays.gen2CostDisplay.html(game.gen2Cost);
-            Displays.gen2OwnDisplay.html(game.gen2Own);
+            Displays.gen2CostDisplay.text(game.gen2Cost);
+            Displays.gen2OwnDisplay.text(game.gen2Own);
         }
     })
 
@@ -193,8 +208,8 @@ function init() {
             game.gen3Gen = game.gen3Own * game.gen3Base;
             game.gen3Cost = Math.floor(  57600 + (game.gen3Own ** 2.2) *  1000);
 
-            Displays.gen3CostDisplay.html(game.gen3Cost);
-            Displays.gen3OwnDisplay.html(game.gen3Own);
+            Displays.gen3CostDisplay.text(game.gen3Cost);
+            Displays.gen3OwnDisplay.text(game.gen3Own);
         }
     })
 
@@ -205,8 +220,8 @@ function init() {
             game.gen4Gen = game.gen4Own * game.gen4Base;
             game.gen4Cost = Math.floor(2764800 + (game.gen4Own ** 2.3) * 10000);
 
-            Displays.gen4CostDisplay.html(game.gen4Cost);
-            Displays.gen4OwnDisplay.html(game.gen4Own);
+            Displays.gen4CostDisplay.text(game.gen4Cost);
+            Displays.gen4OwnDisplay.text(game.gen4Own);
         }
     })
 
@@ -217,6 +232,7 @@ function init() {
 
 
     game.loadGame();
+    game.versionGame(Displays.ChangelogDisplay);
     game.frameSaveCount = 0;
     notification("You are seeing this notification as the game just loaded :D", 
     $("#main-container"));
@@ -280,13 +296,50 @@ function init() {
                 button.show();
             }
             else { button.hide(); }
-    }
+        }
 
         function condenseBought(button, bought){
             if(bought == true) { button.addClass("bought"); }
             else { button.removeClass("bought"); }
         }
 
+
+
+        condenseConditions(game.scorePrestigeTotal, 0, Buttons.PrestigeTab);
+
+        switch(tabIndex){
+            case 0:
+                Displays.MainDisplay.show();        
+                 Buttons.MainTab.addClass("inTab");
+                Displays.PrestigeDisplay.hide();
+                 Buttons.PrestigeTab.removeClass("inTab");
+                Displays.ChangelogDisplay.hide();
+            break;
+
+            case 1:
+                Displays.MainDisplay.hide(); 
+                 Buttons.MainTab.removeClass("inTab");
+                Displays.PrestigeDisplay.show();
+                 Buttons.PrestigeTab.addClass("inTab");
+                Displays.ChangelogDisplay.hide();
+            break;
+
+            case 9: 
+                Displays.MainDisplay.hide(); 
+                 Buttons.MainTab.removeClass("inTab");
+                Displays.PrestigeDisplay.hide();
+                 Buttons.PrestigeTab.removeClass("inTab");
+                Displays.ChangelogDisplay.show();
+            break;
+
+            default:
+                Displays.MainDisplay.show();        
+                 Buttons.MainTab.addClass("inTab");
+                Displays.PrestigeDisplay.hide();
+                 Buttons.PrestigeTab.removeClass("inTab");
+                Displays.ChangelogDisplay.hide();
+            break;
+        }
     }
 
     
@@ -298,37 +351,40 @@ function init() {
         
         updateGeneration(game);
 
-        Displays.scoreDisplay.html(Math.floor(game.score));
+        Displays.scoreDisplay.text(Math.floor(game.score.toPrecision(10)).toLocaleString("en-US"));
         
-        Displays.up1ValDisplay.html(game.up1Val);
-        Displays.up1CostDisplay.html(game.up1Cost);
+        Displays.up1ValDisplay.text(game.up1Val);
+        Displays.up1CostDisplay.text(game.up1Cost);
         
-        Displays.up2ValDisplay.html(game.up2Val);
-        Displays.up2CostDisplay.html(game.up2Cost);
+        Displays.up2ValDisplay.text(game.up2Val);
+        Displays.up2CostDisplay.text(game.up2Cost);
 
-        Displays.up3LevelDisplay.html(game.up3Level);
-        Displays.up3CostDisplay.html(game.up3Cost);
+        Displays.up3LevelDisplay.text(game.up3Level);
+        Displays.up3CostDisplay.text(game.up3Cost);
 
-        Displays.gen1OwnDisplay.html (game.gen1Own);
-        Displays.gen1BaseDisplay.html(game.gen1Base);
-        Displays.gen1GenDisplay.html (game.gen1Gen);
-        Displays.gen1CostDisplay.html(game.gen1Cost);
+        Displays.gen1OwnDisplay.text (game.gen1Own);
+        Displays.gen1BaseDisplay.text(game.gen1Base);
+        Displays.gen1GenDisplay.text (game.gen1Gen);
+        Displays.gen1CostDisplay.text(game.gen1Cost);
 
-        Displays.gen2OwnDisplay.html (game.gen2Own);
-        Displays.gen2BaseDisplay.html(game.gen2Base);
-        Displays.gen2GenDisplay.html (game.gen2Gen);
-        Displays.gen2CostDisplay.html(game.gen2Cost);
+        Displays.gen2OwnDisplay.text (game.gen2Own);
+        Displays.gen2BaseDisplay.text(game.gen2Base);
+        Displays.gen2GenDisplay.text (game.gen2Gen);
+        Displays.gen2CostDisplay.text(game.gen2Cost);
 
-        Displays.gen3OwnDisplay.html (game.gen3Own);
-        Displays.gen3BaseDisplay.html(game.gen3Base);
-        Displays.gen3GenDisplay.html (game.gen3Gen);
-        Displays.gen3CostDisplay.html(game.gen3Cost);
+        Displays.gen3OwnDisplay.text (game.gen3Own);
+        Displays.gen3BaseDisplay.text(game.gen3Base);
+        Displays.gen3GenDisplay.text (game.gen3Gen);
+        Displays.gen3CostDisplay.text(game.gen3Cost);
 
-        Displays.gen4OwnDisplay.html (game.gen4Own);
-        Displays.gen4BaseDisplay.html(game.gen4Base);
-        Displays.gen4GenDisplay.html (game.gen4Gen);
-        Displays.gen4CostDisplay.html(game.gen4Cost);
+        Displays.gen4OwnDisplay.text (game.gen4Own);
+        Displays.gen4BaseDisplay.text(game.gen4Base);
+        Displays.gen4GenDisplay.text (game.gen4Gen);
+        Displays.gen4CostDisplay.text(game.gen4Cost);
 
+        function condenseDisplayFormat(display, precision){
+
+        }
     }
     
 

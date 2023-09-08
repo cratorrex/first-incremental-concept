@@ -126,13 +126,23 @@ export class Game {
         
     }
 
-    versionGame() {
-        alert("Version 0.3.G4:\n" + "Implemented Upgrade 3 and "
+    versionGame(div) {
+        /* alert("Version 0.3.G4:\n" + "Implemented Upgrade 3 and "
         +"Generators 2 to 4.\n" 
         +"Hot fix for new saves causing a null error." 
         +"\n\nVersion 0.2.U1a:\n"
         +"Changed Naming Convention for U1-1 to U1a, and added "
         +"another ability to U1a."
-        +"\n\nVersion 0.2.U1-1:\n" + "Implemented Upgrade 1-1.");
+        +"\n\nVersion 0.2.U1-1:\n" + "Implemented Upgrade 1-1."); */
+        div.html("<p><b>Version 0.4.U2a</b><br/>"+
+        "<br/>Implemented Upgrade 4 and Upgrade 2a.</p>"+
+        "<hr/><p><b>Version 0.3.G4</b><br/>"+
+        "<br/>Implemented Upgrade 3 and Generators 2 to 4."+
+        "<br/>Hot fix for new saves causing a null error.</p>"+
+        "<hr/><p><b>Version 0.2.U1a</b><br/>"+
+        "<br/>Changed Naming Convention for U1-1 to U1a, and added "+
+        "another ability to U1a.</p>"+
+        "<hr/><p><b>Version 0.2.U1-1</b><br/>"+
+        "<br/>Implemented Upgrade 1-1.</p>")
     }
 }
